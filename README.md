@@ -1,6 +1,7 @@
 # IP Lookup App | APIVerve API Tutorial
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Build](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
 [![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-18-61dafb)](https://react.dev)
 [![APIVerve | IP Lookup](https://img.shields.io/badge/APIVerve-IP_Lookup-purple)](https://apiverve.com/marketplace/iplookup?utm_source=github&utm_medium=tutorial&utm_campaign=ip-lookup-nextjs-tutorial)
