@@ -111,12 +111,13 @@ Browser → Next.js API Route → APIVerve API
 {
   "success": true,
   "data": {
-    "ip": "8.8.8.8",
+    "ip": "173.172.81.20",
     "country": "US",
-    "region": "CA",
-    "city": "Mountain View",
-    "timezone": "America/Los_Angeles",
-    "coordinates": [37.3860, -122.0838]
+    "region": "MO",
+    "city": "Kansas City",
+    "timezone": "America/Chicago",
+    "coordinates": [39.0831, -94.5853],
+    "range": [2913751040, 2913755135]
   }
 }
 ```
