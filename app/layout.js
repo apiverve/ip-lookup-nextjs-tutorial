@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'IP Lookup | APIVerve Tutorial',
-  description: 'Get location data from any IP address using APIVerve',
+  title: 'IP Lookup',
+  description: 'Find where an IP address is: city, timezone and network. Built with APIVerve.',
 };
 
 export default function RootLayout({ children }) {

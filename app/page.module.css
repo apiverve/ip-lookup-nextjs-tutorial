@@ -13,7 +13,7 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   padding: 40px;
   width: 100%;
-  max-width: 450px;
+  max-width: 520px;
   text-align: center;
 }
 
@@ -128,4 +128,53 @@
   font-size: 14px;
   font-weight: 600;
   color: #333;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.secondary {
+  padding: 14px 18px;
+  background: white;
+  color: #5a4fcf;
+  border: 2px solid #d9d6f7;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.secondary:hover:not(:disabled) {
+  border-color: #667eea;
+}
+
+.you {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5a4fcf;
+  background: #efedff;
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
+
+.value {
+  word-break: break-word;
+}
+
+.map {
+  display: block;
+  margin-top: 16px;
+  text-align: center;
+  font-size: 13px;
+  color: #5a4fcf;
+  text-decoration: none;
+}
+
+.map:hover {
+  text-decoration: underline;
 }

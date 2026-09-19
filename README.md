@@ -1,35 +1,31 @@
-# IP Lookup App | APIVerve API Tutorial
+# IP Lookup | APIVerve Template
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Build](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
-[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org)
-[![React](https://img.shields.io/badge/React-18-61dafb)](https://react.dev)
-[![APIVerve | IP Lookup](https://img.shields.io/badge/APIVerve-IP_Lookup-purple)](https://apiverve.com/marketplace/iplookup?utm_source=github&utm_medium=tutorial&utm_campaign=ip-lookup-nextjs-tutorial)
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000)](package.json)
+[![React](https://img.shields.io/badge/React-19-61dafb)](package.json)
+[![APIVerve | IP Lookup](https://img.shields.io/badge/APIVerve-IP_Lookup-purple)](https://apiverve.com/marketplace/iplookup?utm_source=github&utm_medium=template&utm_campaign=ip-lookup-nextjs-tutorial)
 
-A modern IP geolocation app built with Next.js 14. Enter any IP address and get instant location data including city, country, timezone, and coordinates.
+Find where an IP address is. Enter any IPv4 or IPv6 address, or look up your visitor's own, and get the city, region, country, postcode, local time, network provider and a map link.
 
-![Screenshot](https://raw.githubusercontent.com/apiverve/ip-lookup-nextjs-tutorial/main/screenshot.jpg)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fapiverve%2Fip-lookup-nextjs-tutorial&project-name=ip-lookup&repository-name=ip-lookup&env=APIVERVE_API_KEY&envDescription=Your%20APIVerve%20API%20key.%20Free%20to%20create%2C%20no%20card%20needed.&envLink=https%3A%2F%2Fdashboard.apiverve.com%2Fsignup%3Fapi%3Diplookup%26utm_source%3Dvercel%26utm_medium%3Dtemplate%26utm_campaign%3Dip-lookup-nextjs-tutorial)
 
----
-
-### Get Your Free API Key
-
-This tutorial requires an APIVerve API key. **[Sign up free](https://dashboard.apiverve.com?utm_source=github&utm_medium=tutorial&utm_campaign=ip-lookup-nextjs-tutorial)** - no credit card required.
+![IP Lookup showing Montreal, Quebec for 24.48.0.1](https://raw.githubusercontent.com/apiverve/ip-lookup-nextjs-tutorial/main/screenshot.png)
 
 ---
 
-## Features
+### Get your free API key
 
-- Instant IP geolocation lookups
-- City, region, country, and timezone data
-- Latitude/longitude coordinates
-- Server-side API key protection (Route Handlers)
-- Modern Next.js 14 App Router
-- Clean, responsive UI
+This template needs an APIVerve API key. **[Sign up free](https://dashboard.apiverve.com/signup?api=iplookup&utm_source=github&utm_medium=template&utm_campaign=ip-lookup-nextjs-tutorial)**, no credit card required.
 
-## Quick Start
+---
 
-1. **Clone this repository**
+## Deploy in one click
+
+Click **Deploy with Vercel** above. Vercel copies this repo to your GitHub account, asks for your `APIVERVE_API_KEY`, and gives you a live URL about a minute later. Once it's deployed, **Use my IP** looks up whoever opens the page.
+
+## Run it locally
+
+1. **Clone the repository**
    ```bash
    git clone https://github.com/apiverve/ip-lookup-nextjs-tutorial.git
    cd ip-lookup-nextjs-tutorial
@@ -41,136 +37,86 @@ This tutorial requires an APIVerve API key. **[Sign up free](https://dashboard.a
    ```
 
 3. **Add your API key**
-
-   Open `app/api/lookup/route.js` and replace the placeholder with your API key:
-   ```javascript
-   const API_KEY = 'your-api-key-here';
+   ```bash
+   cp .env.example .env.local
    ```
+   Then open `.env.local` and set `APIVERVE_API_KEY`.
 
 4. **Start the development server**
    ```bash
    npm run dev
    ```
 
-5. **Open in browser**
+5. **Open** `http://localhost:3000` and try `8.8.8.8`
 
-   Visit http://localhost:3000 and try looking up `8.8.8.8` (Google DNS)!
+Locally, **Use my IP** tells you you're on a local address: `localhost` has no location. It works once the app is deployed.
 
-## Project Structure
+## How it works
 
-```
-ip-lookup-nextjs-tutorial/
-├── app/
-│   ├── api/
-│   │   └── lookup/
-│   │       └── route.js    # API route (server-side)
-│   ├── page.js             # Main page component
-│   ├── page.module.css     # Page styles
-│   ├── layout.js           # Root layout
-│   └── globals.css         # Global styles
-├── package.json            # Dependencies
-├── next.config.js          # Next.js config
-├── screenshot.jpg          # Preview image
-├── LICENSE                 # MIT license
-├── .gitignore              # Git ignore rules
-└── README.md               # This file
-```
-
-## How It Works
-
-This tutorial demonstrates Next.js best practices:
-
-1. **Client Component** (`page.js`) - Handles the UI and user input
-2. **API Route** (`api/lookup/route.js`) - Proxies requests to APIVerve, keeping your API key secure
-3. **Server-side fetch** - The API key never reaches the browser
-
-### Architecture
+1. The page calls `/api/lookup?ip=…`, or `/api/lookup` with no IP to look up the visitor.
+2. That route checks the address, then calls IP Lookup. Your API key stays on the server and never reaches the browser.
+3. With no IP given, the route uses the visitor's address from the `x-forwarded-for` header that Vercel sets.
 
 ```
-Browser → Next.js API Route → APIVerve API
-                ↓
-         API key stays
-         on the server
+app/
+├── api/lookup/route.js   # Validates the IP, calls APIVerve
+├── page.js               # The form and the results
+├── page.module.css       # Styles
+├── layout.js
+└── globals.css
 ```
 
-## API Reference
+### The API call
 
-### Internal API Route
-
-**Endpoint:** `GET /api/lookup`
-
-**Query Parameters:**
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `ip` | string | Yes | IP address to lookup |
-
-**Example Response:**
-
-```json
-{
-  "success": true,
-  "data": {
-    "ip": "173.172.81.20",
-    "country": "US",
-    "region": "MO",
-    "city": "Kansas City",
-    "timezone": "America/Chicago",
-    "coordinates": [39.0831, -94.5853],
-    "range": [2913751040, 2913755135]
-  }
-}
+```javascript
+const res = await fetch(
+  `https://api.apiverve.com/v1/iplookup?ip=${encodeURIComponent(ip)}`,
+  { headers: { 'x-api-key': process.env.APIVERVE_API_KEY } }
+);
+const { data } = await res.json();
+// data.city, data.regionName, data.countryName, data.timezone, data.coordinates, data.asnName …
 ```
 
-## Use Cases
+## What you get back
 
-IP geolocation is useful for:
+| Field | Example |
+|-------|---------|
+| `city`, `regionName`, `countryName` | Montreal, Quebec, Canada |
+| `country`, `region`, `continent` | CA, QC, NA |
+| `postalCode` | H1K |
+| `timezone` | America/Toronto |
+| `coordinates`, `accuracyRadius` | [45.6085, -73.5493], 5 km |
+| `asn`, `asnName` | AS5769, VIDEOTRON |
+| `isEU` | false |
 
-- **Analytics** - Understand where your users are located
-- **Personalization** - Show local content, currency, or language
-- **Security** - Detect suspicious login locations
-- **Compliance** - Enforce regional restrictions (GDPR, etc.)
-- **Fraud Detection** - Flag mismatched billing/IP locations
-- **Load Balancing** - Route to nearest server
+City-level location is an estimate. `accuracyRadius` tells you how far off it might be.
 
-## Customization Ideas
+## Before you share your URL
 
-- Auto-detect visitor's IP on page load
-- Add a map visualization with Leaflet or Google Maps
-- Show ISP/ASN information
-- Add IP history with localStorage
-- Deploy to Vercel with environment variables
-- Add rate limiting
+Once deployed, anyone who finds your URL can run lookups on your API key. The route allows 10 requests per minute per visitor, which is fine for a demo. The limit is kept in memory, so it isn't shared between serverless instances. For production:
 
-## Related APIs
+- Put the page behind your own sign-in, or
+- Move the limit to a shared store such as [Upstash Redis](https://upstash.com/), or
+- Call the lookup only from your own backend, for example when someone signs up.
 
-Explore more APIs at [APIVerve](https://apiverve.com/marketplace?utm_source=github&utm_medium=tutorial&utm_campaign=ip-lookup-nextjs-tutorial):
+## Ideas to extend it
 
-- [IP Blacklist Lookup](https://apiverve.com/marketplace/ipblacklistlookup?utm_source=github&utm_medium=tutorial&utm_campaign=ip-lookup-nextjs-tutorial) - Check if an IP is blacklisted
-- [ASN Lookup](https://apiverve.com/marketplace/asnlookup?utm_source=github&utm_medium=tutorial&utm_campaign=ip-lookup-nextjs-tutorial) - Get ASN details for an IP
-- [DNS Lookup](https://apiverve.com/marketplace/dnslookup?utm_source=github&utm_medium=tutorial&utm_campaign=ip-lookup-nextjs-tutorial) - Query DNS records
+- Pre-fill the country and currency on your checkout
+- Show prices and times in the visitor's timezone
+- Flag signups whose IP country doesn't match their billing country
+- Add [VPN & Proxy Detector](https://apiverve.com/marketplace/vpndetector?utm_source=github&utm_medium=template&utm_campaign=ip-lookup-nextjs-tutorial) to spot visitors hiding their location
 
-## Deploy to Vercel
+## API reference
 
-1. Push to GitHub
-2. Import to [Vercel](https://vercel.com)
-3. Add `API_KEY` as an environment variable
-4. Deploy!
+- [IP Lookup](https://apiverve.com/marketplace/iplookup?utm_source=github&utm_medium=template&utm_campaign=ip-lookup-nextjs-tutorial): `GET https://api.apiverve.com/v1/iplookup?ip=`
+- [Full documentation](https://docs.apiverve.com?utm_source=github&utm_medium=template&utm_campaign=ip-lookup-nextjs-tutorial)
 
-## Free Plan Note
+## Tech stack
 
-This tutorial works with the free APIVerve plan. Some APIs may have:
-- **Locked fields**: Premium response fields return `null` on free plans
-- **Ignored parameters**: Some optional parameters require a paid plan
-
-The API response includes a `premium` object when limitations apply. [Upgrade anytime](https://dashboard.apiverve.com/plans) to unlock all features.
+- **Next.js 16** (App Router, route handlers)
+- **React 19**
+- **CSS Modules**
 
 ## License
 
-MIT - see [LICENSE](LICENSE)
-
-## Links
-
-- [Get API Key](https://dashboard.apiverve.com?utm_source=github&utm_medium=tutorial&utm_campaign=ip-lookup-nextjs-tutorial) - Sign up free
-- [APIVerve Marketplace](https://apiverve.com/marketplace?utm_source=github&utm_medium=tutorial&utm_campaign=ip-lookup-nextjs-tutorial) - Browse 300+ APIs
-- [IP Lookup API](https://apiverve.com/marketplace/iplookup?utm_source=github&utm_medium=tutorial&utm_campaign=ip-lookup-nextjs-tutorial) - API details
+MIT. See [LICENSE](LICENSE).
